@@ -1,0 +1,24 @@
+{
+  "name": "pour-css",
+  "version": "1.0.0",
+  "bin": {
+    "pour": "./cli.js"
+  },
+  "scripts": {
+    "build": "bsb -make-world",
+    "start": "bsb -make-world -w",
+    "clean": "bsb -clean-world"
+  },
+  "keywords": [
+    "BuckleScript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "glob": "^7.1.2",
+    "ospec": "^2.0.0"
+  },
+  "dependencies": {
+    "binary-split": "^1.0.3"
+  }
+}
