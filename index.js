@@ -79,13 +79,14 @@ function bundle (file) {
       else {
         // No match; probably a normal import.
         this.push(statementBuf)
+        this.push(semicolonBuf)
         done()
       }
     }
     else {
       // Pass along statement untouched (after adding back splitted semicolon)
-      this.push(semicolonBuf)
       this.push(statementBuf)
+      this.push(semicolonBuf)
       done()
     }
 

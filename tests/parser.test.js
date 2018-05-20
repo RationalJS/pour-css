@@ -30,3 +30,12 @@ o("inline import", function (done) {
     done()
   })
 })
+
+o("it adds semicolons to the end", function (done) {
+  var file = __dirname + '/fixtures/minimal.css'
+  gather(file, function (err, data) {
+    o(err).equals(null) `no error`
+    o(data).equals('a { color: red; }\n;\n;')
+    done()
+  })
+})
