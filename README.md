@@ -10,7 +10,7 @@ Pour **does not** minify or process your CSS in any way – there are already de
 
 ### But why?
 
-You might not need SASS (common installation problems), LESS (poor tooling), or PostCSS (complex setup). CSS has become quite mature out-of-the-box. Did you know it supports...
+You might not need SASS (common installation problems), LESS (poor tooling), or PostCSS (complex setup). CSS has become quite mature out-of-the-box. Did you know browsers now widely support...
 
 - [Actual Variables](https://caniuse.com/#search=css%20variables)?
 - [Flexbox](https://caniuse.com/#search=flexbox)?
@@ -33,27 +33,30 @@ You can use Pour via the command line or its JavaScript API.
 pour my/style.css > bundle.css
 ```
 
-### JavaScript
+### JavaScript API
 
 Pour exposes a `bundle` function that takes a file path and returns a stream.
 
 ```js
-var Pour = require('pour-css')
-//
-// Pipe to a file...
-//
-Pour.bundle(__dirname + '/css/index.css')
-    .pipe(fs.createWriteStream('bundle.css'))
+var Pour = require('pour-css');
+```
 
-//
-// ...or pipe to a HTTP response!
-//
+You can pipe to a file...
+
+```js
+Pour.bundle(__dirname + '/css/index.css')
+    .pipe(fs.createWriteStream('bundle.css'));
+```
+
+...or pipe to a HTTP response!
+
+```js
 var http = require('http')
 
 http.createServer((req, res) => {
   if ( req.method === 'GET' && req.url === '/style.css' ) {
     Pour.bundle(__dirname + '/css/index.css')
-        .pipe(res)
+        .pipe(res);
   }
   // ...
 });
@@ -69,7 +72,7 @@ If you're mixing `@import` and `@import (inline)`, be careful about how you orde
 
 What does this mean for you? Just use these two rules of thumb and you should be good:
 
-1. Don't `@import (inline)` a file that contains normal `@import` statements
+1. Don't `@import (inline)` a file that contains normal `@import` statements (or be very careful about it)
 2. Put all `@import (inline)` statements **after** your normal `@import` statements (if you have any).
 
 ## Testing
