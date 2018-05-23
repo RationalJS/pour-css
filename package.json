@@ -4,6 +4,11 @@
   "bin": {
     "pour": "./cli.js"
   },
+  "files": [
+    "cli.js",
+    "index.js",
+    "README.md"
+  ],
   "scripts": {
     "build": "bsb -make-world",
     "start": "bsb -make-world -w",
