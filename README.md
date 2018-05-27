@@ -13,6 +13,8 @@ Pour **does not** minify or process your CSS in any way – there are already de
 You might not need SASS (common installation problems), LESS (poor tooling), or PostCSS (complex setup). CSS has become quite mature out-of-the-box. Did you know browsers now widely support...
 
 - [Actual Variables](https://caniuse.com/#search=css%20variables)?
+- [Runtime Calculations](https://developer.mozilla.org/en-US/docs/Web/CSS/calc)?
+- [Filters](http://bennettfeely.com/filters/)?
 - [Flexbox](https://caniuse.com/#search=flexbox)?
 - [Grid Layouts](https://caniuse.com/#search=flexbox)?
 - And [all of CSS3](https://caniuse.com/#feat=css-sel3)?
