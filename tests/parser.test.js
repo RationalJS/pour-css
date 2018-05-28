@@ -39,3 +39,18 @@ o("it adds semicolons to the end", function (done) {
     done()
   })
 })
+
+o("it gracefully handles missing inline imports", function (done) {
+  var file = __dirname + '/fixtures/bad-inline-import.css'
+  gather(file, function (err, data) {
+    o(err).equals(null) `no error`
+    o(data && data.includes('import (inline) error')).equals(true) `error message interpolated`
+
+    o(data && data.includes('@import (inline) "./a.css"')).equals(false) `a.css was inlined (1)`
+    o(data && data.includes('a { color: red; }')).equals(true) `a.css was inlined (2)`
+
+    o(data && data.includes('@import (inline) "./b.css"')).equals(false) `bt.css was inlined (1)`
+    o(data && data.includes('b { color: blue; }')).equals(true) `b.css was inlined (2)`
+    done()
+  })
+})

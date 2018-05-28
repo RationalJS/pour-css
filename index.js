@@ -25,7 +25,10 @@ function bundle (file) {
   if ( ! Path.isAbsolute(file) ) {
     throw new Error('[pour-css] File path must be an absolute path')
   }
+  return _bundle(file)
+}
 
+function _bundle (file) {
   return fs.createReadStream(file)
     .pipe(split(';'))
     .pipe(through(write))
@@ -72,9 +75,21 @@ function bundle (file) {
       if ( match && match[1] === 'inline' ) {
         var fileToImport = Path.resolve(Path.dirname(file), match[2])
 
-        bundle(fileToImport)
-          .on('data', (chunk) => this.push(chunk))
-          .on('finish', (err) => done(err))
+        if ( fs.existsSync(fileToImport) ) {
+          _bundle(fileToImport)
+            .on('data', (chunk) => this.push(chunk))
+            .on('finish', (err) => done(err))
+        }
+        else {
+          console.warn('[pour-css] No such file to import inline:', match[2])
+          this.push(Buffer.from(`
+/*
+ * import (inline) error:
+ * File does not exist: ${match[2]}
+ */
+          `))
+          done()
+        }
       }
       else {
         // No match; probably a normal import.

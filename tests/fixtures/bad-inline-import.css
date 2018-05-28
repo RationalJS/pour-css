@@ -1,0 +1,3 @@
+@import (inline) "./a.css";
+@import (inline) "./idontexist.css";
+@import (inline) "./b.css";
