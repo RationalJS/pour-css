@@ -31,11 +31,39 @@ o("inline import", function (done) {
   })
 })
 
-o("it adds semicolons to the end", function (done) {
+o("it does not add extraneous semicolons", function (done) {
   var file = __dirname + '/fixtures/minimal.css'
   gather(file, function (err, data) {
     o(err).equals(null) `no error`
-    o(data).equals('a { color: red; }\n;\n;')
+    o(data).equals('a { color: red; }\n\n')
+    done()
+  })
+})
+
+o("it does not add extraneous semicolons (2)", function (done) {
+  var file = __dirname + '/fixtures/complex.css'
+  gather(file, function (err, data) {
+    o(err).equals(null) `no error`
+    o(data).equals(
+`@import "b.css";a { color: red; }
+
+
+body { background: white; color: black; }
+`)
+    done()
+  })
+})
+
+o("it does not add extraneous semicolons (3)", function (done) {
+  var file = __dirname + '/fixtures/unusual.css'
+  gather(file, function (err, data) {
+    o(err).equals(null) `no error`
+    o(data).equals(
+`@import "a.css";
+@import "b.css";
+
+@import "c.css";
+`)
     done()
   })
 })

@@ -29,6 +29,17 @@ function bundle (file) {
 }
 
 function _bundle (file) {
+  var skipSemicolon = true
+
+  function insertSemicolon (stream) {
+    if (skipSemicolon) {
+      skipSemicolon = false
+    }
+    else {
+      stream.push(semicolonBuf)
+    }
+  }
+
   return fs.createReadStream(file)
     .pipe(split(';'))
     .pipe(through(write))
@@ -73,6 +84,8 @@ function _bundle (file) {
     ) {
       var match = statementBuf.toString('utf8').match(specialImportRe)
       if ( match && match[1] === 'inline' ) {
+        insertSemicolon(this)
+        skipSemicolon = true
         var fileToImport = Path.resolve(Path.dirname(file), match[2])
 
         if ( fs.existsSync(fileToImport) ) {
@@ -92,16 +105,18 @@ function _bundle (file) {
         }
       }
       else {
+        insertSemicolon(this)
+        // skipSemicolon = false
         // No match; probably a normal import.
+        // this.push(semicolonBuf)
         this.push(statementBuf)
-        this.push(semicolonBuf)
         done()
       }
     }
     else {
-      // Pass along statement untouched (after adding back splitted semicolon)
+      insertSemicolon(this)
+      // Pass along statement untouched
       this.push(statementBuf)
-      this.push(semicolonBuf)
       done()
     }
 
