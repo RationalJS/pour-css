@@ -64,10 +64,6 @@ http.createServer((req, res) => {
 });
 ```
 
-### ReasonML
-
-Coming soon!
-
 ## Caveats
 
 If you're mixing `@import` and `@import (inline)`, be careful about how you order them. According to [the official CSS spec](https://www.w3.org/TR/css3-cascade/#at-import), all `@import` rules **must** precede all other rules in your stylesheet. In practice, any `@import` rule that **doesn't** follow the spec is ignored by the browser.

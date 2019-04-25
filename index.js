@@ -106,9 +106,7 @@ function _bundle (file) {
       }
       else {
         insertSemicolon(this)
-        // skipSemicolon = false
         // No match; probably a normal import.
-        // this.push(semicolonBuf)
         this.push(statementBuf)
         done()
       }
